@@ -2,12 +2,6 @@
 
 26 agent skills from a real, working engineering system — for anyone running AI coding agents daily.
 
-## Credits
-
-- **drill-me** ← grill-me × wayfinder (Matt Pocock, https://github.com/mattpocock/skills)
-- **adhd** (https://github.com/uditakhourii) — referenced by `drill` and `drill-me` but **not included** in this bundle; install it separately if you want the "go deeper" ideation path.
-- Everything else is original work.
-
 ## What you get
 
 Skills are grouped into packages. Copy one package or the whole repo.
@@ -55,13 +49,18 @@ Works with any agent that reads `SKILL.md` files. Under [pi](https://github.com/
 
 ## Contents
 
-- [Credits](#credits)
 - [What you get](#what-you-get)
 - [Standalone skills](#standalone-skills)
 - [Install](#install)
 - [Honest status](#honest-status)
+- [Credits](##credits)
 - [License](#license)
 
+## Credits
+
+- **drill-me** ← grill-me × wayfinder (Matt Pocock, https://github.com/mattpocock/skills)
+- **adhd** (https://github.com/uditakhourii) — referenced by `drill` and `drill-me` but **not included** in this bundle; install it separately if you want the "go deeper" ideation path.
+- Everything else is original work.
 ## License
 
 MIT — see [LICENSE](LICENSE).
