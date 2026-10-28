@@ -46,7 +46,7 @@ Works with any agent that reads `SKILL.md` files. Under [pi](https://github.com/
 
 - `drill`, `drill-me`, `live-loop` — **draft**: mature in use, docs still being tightened.
 - `conduct-tickets` — **draft**: it orchestrates tickets produced by `split-to-tickets` and checked by `hygiene-check`, which are not published and not included here. The skill won't run end to end without them.
-- Packages other than `drill` have no standalone repo yet — links above are TODO markers.
+- All packages have standalone repos (links above); the bundle and the packs stay in sync via a one-way sync script.
 
 ## Contents
 
