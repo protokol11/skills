@@ -9,12 +9,12 @@ Skills are grouped into packages. Copy one package or the whole repo.
 | Package | Skills | Repo |
 |---|---|---|
 | **drill** — Socratic decision protocols (one hard question at a time, mandatory critique, typed question-graph) | `drill`, `drill-me` | https://github.com/protokol11/drill |
-| **live-loop** — agent-runnable live-test runners for desktop/hybrid apps (spawn, capture, watch markers, inject faults, tree-kill) | `live-loop`, `monster-longrun` | not published yet (TODO) |
-| **handoffs** — state-transfer documents: create one, resume from one | `hands-on`, `hands-off` | not published yet (TODO) |
-| **not-messy.docs** — turn conversations into specs, ADRs, and a domain glossary; keep docs current after implementation | `to-spec`, `to-adr`, `to-context`, `update-docs` | not published yet (TODO) |
-| **principles** — extract principles from research, lint/rewrite artifacts against them, render compliance artifacts | `to-principles`, `principled-write`, `principles-render` | not published yet (TODO) |
-| **violence-fix** — find principle violations, slice-fix them through subagents, re-check claimed fixes for new violations | `to-violations`, `violent`, `violent-subagent` | not published yet (TODO) |
-| **repo-upgrade** — bootstrap or upgrade a project to an agentic scaffold with a compliance package | `setup-repo`, `upgrade-repo` | not published yet (TODO) |
+| **live-loop** — agent-runnable live-test runners for desktop/hybrid apps (spawn, capture, watch markers, inject faults, tree-kill) | `live-loop`, `monster-longrun` | https://github.com/protokol11/live-loop |
+| **handoffs** — state-transfer documents: create one, resume from one | `hands-on`, `hands-off` | https://github.com/protokol11/handoffs |
+| **not-messy.docs** — turn conversations into specs, ADRs, and a domain glossary; keep docs current after implementation | `to-spec`, `to-adr`, `to-context`, `update-docs` | https://github.com/protokol11/not-messy.docs |
+| **principles** — extract principles from research, lint/rewrite artifacts against them, render compliance artifacts | `to-principles`, `principled-write`, `principles-render` | https://github.com/protokol11/principles |
+| **violence-fix** — find principle violations, slice-fix them through subagents, re-check claimed fixes for new violations | `to-violations`, `violent`, `violent-subagent` | https://github.com/protokol11/violence-fix |
+| **repo-upgrade** — bootstrap or upgrade a project to an agentic scaffold with a compliance package | `setup-repo`, `upgrade-repo` | https://github.com/protokol11/repo-upgrade |
 
 ### Standalone skills
 
