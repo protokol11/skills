@@ -1,6 +1,6 @@
 # protokol11/skills
 
-26 agent skills from a real, working engineering system — for anyone running AI coding agents daily.
+27 agent skills from a real, working engineering system — for anyone running AI coding agents daily.
 
 ## What you get
 
@@ -23,6 +23,7 @@ Skills are grouped into packages. Copy one package or the whole repo.
 | `implement` | Implement a piece of work based on a spec or set of tickets. |
 | `write-skill` | Create a well-formed agent skill from a task or a pipeline doc. |
 | `groom` | Drain the global inbox into the current project's queue. One question per line. |
+| `hard-truth` | A bug or "not what I wanted" report comes in; diagnose feature depth and module boundaries before the visible symptom. |
 | `conduct-tickets` | Orchestrate parallel implementation of multiple tickets through waves of file-isolated coder agents. |
 | `payload-compression` | Design dense tool, API, and MCP response payloads. Cut tokens while keeping meaning intact. |
 | `dreyfus-router` | Choose novice, competent, proficient, or expert mode for a subagent based on task familiarity. |
@@ -53,7 +54,7 @@ Works with any agent that reads `SKILL.md` files. Under [pi](https://github.com/
 - [Standalone skills](#standalone-skills)
 - [Install](#install)
 - [Honest status](#honest-status)
-- [Credits](##credits)
+- [Credits](#credits)
 - [License](#license)
 
 ## Credits
@@ -61,6 +62,7 @@ Works with any agent that reads `SKILL.md` files. Under [pi](https://github.com/
 - **drill-me** ← grill-me × wayfinder (Matt Pocock, https://github.com/mattpocock/skills)
 - **adhd** (https://github.com/uditakhourii) — referenced by `drill` and `drill-me` but **not included** in this bundle; install it separately if you want the "go deeper" ideation path.
 - Everything else is original work.
+
 ## License
 
 MIT — see [LICENSE](LICENSE).
