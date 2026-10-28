@@ -1,0 +1,63 @@
+---
+name: to-principles
+description: Turn a research round into four purpose-classified buckets with one human gate at the start. User-invoked.
+disable-model-invocation: true
+---
+
+# principled-extraction
+
+Turn a round folder into theory, concepts, applicable units, and rule candidates. One human gate at P-1, then the run is autonomous.
+
+Leading rule: **purpose decides destination.** Classify before you synthesize.
+Harness rule: **preflight the model and the tool before you trust the role.** A role is a triple: task, model, tool-set.
+
+## Done
+
+The run is done when:
+
+1. The P-1 policy card is answered and the preflight passed.
+2. P0 to P7 ran in order, one subagent at a time.
+3. Four bucket files exist under `AGENTIC_PAPERS/principles&ideas/<round>/`.
+4. Every unit carries a source tag and a verbatim quote with `file:line`.
+5. `rules-candidates.md` is `pending`.
+6. `session-graph.jsonl` has one line per phase, written by the Conductor.
+7. Every subagent output was re-checked machine-wise before its gate.
+
+## Phases
+
+-1. **Configure + preflight.** Ask the owner one policy card: model budget, web corroboration, rule policy, round folder, output path. The default output is `AGENTIC_PAPERS/principles&ideas/<round>/` — never the materials folder. Then preflight: resolve every role model against `subagent({action:"models"})`, confirm each role's tool-set, record the catalog hash, set per-role `timeoutMs`. Done when the role table is confirmed and the pre-run hash is written.
+0. **Recon.** List the round files, read the headings, map internal contradictions. Owner: Conductor, or a subagent only if preflight confirmed `ls` and `read`. Done when the contradiction map exists.
+1. **Extract.** Read one file at a time. Produce facts with a verbatim quote and `file:line`. Role: Extractor. Done when every file has units and no unit has synthesis.
+2. **Classify.** Tag each unit with a type and a source tag. Types: `theory | concept | applicable | rule`. Sources: `vendor | independent | our-empirical`. Role: Classifier. Done when every unit carries both tags.
+3. **Verify.** Web-corroborate each theory unit. Owner: **Conductor always** — foreground subagents do not load web extensions, so a Corroborator subagent is not spawnable in practice (Round10/Round11 precedent); do not spend a preflight slot on it. Done when every theory is `corroborated` or `uncorroborated`.
+4. **Skeptic.** Attack each concept and rule. Ask "bet or evidence?". Role: Skeptic, OFF. Done when every concept and rule has a verdict.
+5. **Dedup.** Compare rule candidates against the live catalog. Role: Classifier. Done when the report names each existing match.
+6. **Synthesize.** Write the four bucket files. The Conductor appends `session-graph.jsonl`. Role: Synthesizer. Done when every file follows its schema in REFERENCE.md.
+7. **Gate.** Re-run the acceptance checks. Re-check the catalog hash. Done when all pass and the catalog is byte-identical.
+
+## Rules
+
+1. Run one subagent at a time, sequential, never parallel.
+2. Skeptic OFF-thinking. Builder thinking. Roles stay apart.
+3. Skip the skeptic for applicable units. Nothing to dispute.
+4. Drop a unit without a quote. If the source is a pdftotext-extracted book, the raw text may be cp1252, not UTF-8 — decode before comparing or writing a verbatim quote; a mojibake quote counts as no quote.
+5. Write `rules-candidates.md` as `pending`. Merge the catalog in a separate session.
+6. Mark theory without web corroboration as `uncorroborated`.
+7. Keep reviewers read-only. Only P6 writes.
+8. Run one round per run.
+9. Treat a subagent report as data, not authority. Re-run the gate yourself.
+10. Reserve the catalog decision for the human.
+11. **Preflight before P0.** Resolve every role model in `subagent({action:"models"})`. An unknown model stops the run; it does not silently fall back. Confirm the role's tool-set at spawn; a role without its required tool does not run.
+12. **Paid is the default.** Free is opt-in per role at P-1. A free role that fails twice (error, empty output, or a tool loop) switches once to its paid model. Two failures on the paid model stop the run.
+13. **Hash the catalog before you read it.** Record `sha256` of `to-violations/PRINCIPLES.md` at P-1. P7 compares it. `mtime` is not proof.
+14. **Bound the self-check.** One verification pass per unit. No repeated `grep` on the same pattern.
+15. **No child-side `node` parsing.** Gates run in the Conductor. A subagent does not `require` harness modules.
+16. **Cap the run.** `timeoutMs` 8 minutes for extract, classify, and synth. Abort a role that repeats one tool call.
+17. **The Conductor writes `session-graph.jsonl`.** A synthesizer must not relabel phases.
+18. **Write results outside the materials folder.** Materials stay in `AGENTIC_PAPERS/rounds-research/<round>/`. Results, README, and process traces go to `AGENTIC_PAPERS/principles&ideas/<round>/` (readable buckets at top, machine traces in `process/`). Never create an `EXTRACTS/` inside the materials folder.
+
+## Reference
+
+Taxonomy, schemas, policy card, role/tool matrix, and preflight checklist: [REFERENCE.md](REFERENCE.md).
+Model pre-fill: `~/.agents/skills/monster-longrun/MODEL-CATALOG.md`.
+Personas: `~/.agents/skills/monster-longrun/PERSONA.md`.

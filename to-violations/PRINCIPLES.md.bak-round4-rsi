@@ -1,0 +1,1068 @@
+---
+principles:
+  - id: RTL-01
+    name: Pipeline is a sequence of lowering stages
+    source: RTL-to-GDS_PRINCIPLES.md
+    severity: must
+    artifacts: [agent-instruction, handoff, spec, PRD, skill]
+    text: Each phase lowers abstraction. A signoff gate sits between phases. The next phase starts only after the gate returns pass.
+
+  - id: RTL-02
+    name: Plan resources before detailed work
+    source: RTL-to-GDS_PRINCIPLES.md
+    severity: must
+    artifacts: [handoff, spec, PRD, skill]
+    text: Estimate context, tokens, time, and cost before calling a subagent or starting a long task.
+
+  - id: RTL-03
+    name: Preserve machine-readable intermediate representation
+    source: RTL-to-GDS_PRINCIPLES.md
+    severity: must
+    artifacts: [spec, PRD, plan, skill]
+    text: A plan or spec is an IR. It must be typed, versioned, and checkable by the next phase.
+
+  - id: RTL-04
+    name: Every phase transition is a gate
+    source: RTL-to-GDS_PRINCIPLES.md
+    severity: must
+    artifacts: [handoff, spec, PRD, skill]
+    text: A gate returns pass, fail, or abstain. The pipeline stops on fail or abstain and returns diagnostics.
+
+  - id: RTL-05
+    name: Optimization without regression is breakage
+    source: RTL-to-GDS_PRINCIPLES.md
+    severity: must
+    artifacts: [code, spec, PRD]
+    text: Every change, refactor, prompt tuning, or model swap must pass an equivalence check against baseline.
+
+  - id: RTL-06
+    name: State is a first-class citizen
+    source: RTL-to-GDS_PRINCIPLES.md
+    severity: must
+    artifacts: [code, spec, PRD]
+    text: Every loop or state machine must have explicit states, transitions, terminal states, and max iterations.
+
+  - id: RTL-07
+    name: Agents communicate through typed channels
+    source: RTL-to-GDS_PRINCIPLES.md
+    severity: must
+    artifacts: [agent-instruction, skill, code]
+    text: Agents exchange typed messages. Shared mutable state is a source of races and untraceable bugs.
+
+  - id: RTL-08
+    name: Trusted tool computes, LLM orchestrates, verification gate decides
+    source: RTL-to-GDS_PRINCIPLES.md
+    severity: must
+    artifacts: [agent-instruction, handoff, spec, PRD, diagnose, code]
+    text: Accept a numeric or factual result only if it comes from a trusted tool and passes explicit verification.
+
+  - id: RTL-09
+    name: Every step leaves a trace
+    source: RTL-to-GDS_PRINCIPLES.md
+    severity: must
+    artifacts: [handoff, spec, skill, code]
+    text: Record trace ID, spans, and structured logs for root-cause analysis and replay.
+
+  - id: RTL-10
+    name: Explore before planning
+    source: RTL-to-GDS_PRINCIPLES.md
+    severity: should
+    artifacts: [handoff, spec, PRD]
+    text: An explore-first phase improves plan quality. Cap it with a budget.
+
+  - id: RTL-2.1-01
+    name: DRC gate checks lint, type, and architecture rules
+    source: RTL-to-GDS_PRINCIPLES.md
+    severity: must
+    artifacts: [code, spec]
+    text: A DRC gate reports banned imports, architecture violations, and lint failures in structured form.
+
+  - id: RTL-2.1-02
+    name: LVS gate compares PRD and implementation
+    source: RTL-to-GDS_PRINCIPLES.md
+    severity: must
+    artifacts: [code, spec, PRD]
+    text: Compare requirement and implementation. List mismatches explicitly.
+
+  - id: RTL-2.1-03
+    name: LEC gate checks regression equivalence
+    source: RTL-to-GDS_PRINCIPLES.md
+    severity: must
+    artifacts: [code, spec]
+    text: After a refactor, run regression tests. Explain any behavior change or roll back.
+
+  - id: RTL-2.3-01
+    name: Model state machines explicitly
+    source: RTL-to-GDS_PRINCIPLES.md
+    severity: must
+    artifacts: [code, spec, skill]
+    text: Model loops as deterministic finite automata. Define states, transitions, terminal states, and max iterations.
+
+  - id: RTL-2.3-02
+    name: Use Hoare triples for critical actions
+    source: RTL-to-GDS_PRINCIPLES.md
+    severity: should
+    artifacts: [code, spec, skill]
+    text: State precondition, postcondition, and invariant for each critical action. Confirm the postcondition after execution.
+
+  - id: RTL-2.3-03
+    name: Preserve invariants at every step
+    source: RTL-to-GDS_PRINCIPLES.md
+    severity: must
+    artifacts: [code, spec]
+    text: Check invariants on every step. Examples are source hash unchanged and test pass rate not dropped.
+
+  - id: RTL-2.3-04
+    name: Abstain when confidence is low
+    source: RTL-to-GDS_PRINCIPLES.md
+    severity: must
+    artifacts: [agent-instruction, handoff, spec]
+    text: If verification fails or confidence is low, refuse explicitly and explain what is needed to continue.
+
+  - id: RTL-2.5-01
+    name: Trace refinement and protocol compliance
+    source: RTL-to-GDS_PRINCIPLES.md
+    severity: should
+    artifacts: [skill, code]
+    text: Before joint work, check that the interaction protocol has no deadlock, circular wait, or lost messages.
+
+  - id: RTL-2.5-02
+    name: Explore-first research
+    source: RTL-to-GDS_PRINCIPLES.md
+    severity: should
+    artifacts: [handoff, spec, PRD]
+    text: Gather perspectives, questions, and an outline before planning. Do not write code first.
+
+  - id: PS-01
+    name: Zero tolerance for ad-hoc hacks
+    source: PRINCIPLES_FOR_SKILLS_AND_SUBAGENTS.md
+    severity: must
+    artifacts: [skill, code]
+    text: Small compromises in prompts or interfaces accumulate into an unmanageable system. Reject ad-hoc hacks in skills.
+
+  - id: PS-02
+    name: Deep modules beat wide modules
+    source: PRINCIPLES_FOR_SKILLS_AND_SUBAGENTS.md
+    severity: must
+    artifacts: [skill, code]
+    text: A skill or module should deliver high value through a narrow interface.
+
+  - id: PS-03
+    name: Hide information and do not repeat
+    source: PRINCIPLES_FOR_SKILLS_AND_SUBAGENTS.md
+    severity: must
+    artifacts: [skill, code]
+    text: Prompts, examples, and retry logic live inside a skill. Subagents see only the input-output contract.
+
+  - id: PS-04
+    name: Design before code
+    source: PRINCIPLES_FOR_SKILLS_AND_SUBAGENTS.md
+    severity: must
+    artifacts: [code, spec]
+    text: A subagent must justify design decisions before producing implementation.
+
+  - id: PS-05
+    name: Iterate with fast feedback
+    source: PRINCIPLES_FOR_SKILLS_AND_SUBAGENTS.md
+    severity: must
+    artifacts: [skill, code]
+    text: Treat every skill as a hypothesis. Verify it on real traces.
+
+  - id: PS-06
+    name: Do not trust a result without verification
+    source: PRINCIPLES_FOR_SKILLS_AND_SUBAGENTS.md
+    severity: must
+    artifacts: [handoff, spec, code]
+    text: Every numeric or factual claim must pass a trusted tool or verification gate.
+
+  - id: PS-07
+    name: Separate concerns
+    source: PRINCIPLES_FOR_SKILLS_AND_SUBAGENTS.md
+    severity: must
+    artifacts: [agent-instruction, skill, code]
+    text: Planner, executor, verifier, and critic are distinct roles or subagents.
+
+  - id: PS-08
+    name: Structured state and tool feedback
+    source: PRINCIPLES_FOR_SKILLS_AND_SUBAGENTS.md
+    severity: must
+    artifacts: [skill, code]
+    text: Raw logs are poor input for a planner. Parse them into structured state.
+
+  - id: PS-09
+    name: Optimize trajectory, not only result
+    source: PRINCIPLES_FOR_SKILLS_AND_SUBAGENTS.md
+    severity: should
+    artifacts: [skill, code]
+    text: Token cost, latency, and quality are primary metrics.
+
+  - id: PS-10
+    name: Human is final authority in assurance
+    source: PRINCIPLES_FOR_SKILLS_AND_SUBAGENTS.md
+    severity: must
+    artifacts: [handoff, spec, code]
+    text: A subagent must not self-certify correctness or safety in assurance tasks.
+
+  - id: PS-WF-01
+    name: Work iteratively
+    source: PRINCIPLES_FOR_SKILLS_AND_SUBAGENTS.md
+    severity: must
+    artifacts: [skill, code]
+    text: Make one small step at a time. Say what changed and why.
+
+  - id: PS-WF-02
+    name: Use tracer bullets
+    source: PRINCIPLES_FOR_SKILLS_AND_SUBAGENTS.md
+    severity: should
+    artifacts: [spec, PRD, code]
+    text: Build an end-to-end skeleton with stub logic before adding details.
+
+  - id: PS-WF-03
+    name: Stage gates and sequential dependency
+    source: PRINCIPLES_FOR_SKILLS_AND_SUBAGENTS.md
+    severity: must
+    artifacts: [handoff, spec, code]
+    text: Check the precondition before moving to the next stage.
+
+  - id: PS-WF-04
+    name: Do not use manual procedures
+    source: PRINCIPLES_FOR_SKILLS_AND_SUBAGENTS.md
+    severity: should
+    artifacts: [skill, code]
+    text: Automate build, test, lint, and release. Document why a step must stay manual.
+
+  - id: PS-TV-01
+    name: Solver-grounded design
+    source: PRINCIPLES_FOR_SKILLS_AND_SUBAGENTS.md
+    severity: must
+    artifacts: [code, spec]
+    text: A number or fact in the output must come from a trusted tool and pass a verification gate.
+
+  - id: PS-TV-02
+    name: Safe failure and abstention
+    source: PRINCIPLES_FOR_SKILLS_AND_SUBAGENTS.md
+    severity: must
+    artifacts: [agent-instruction, code]
+    text: If verification fails, refuse explicitly and explain why.
+
+  - id: PS-TV-03
+    name: Clear division of labor
+    source: PRINCIPLES_FOR_SKILLS_AND_SUBAGENTS.md
+    severity: must
+    artifacts: [agent-instruction, skill]
+    text: The LLM does not compute physical quantities. Tools compute. The gate decides.
+
+  - id: PS-TV-04
+    name: Read versus write distinction
+    source: PRINCIPLES_FOR_SKILLS_AND_SUBAGENTS.md
+    severity: must
+    artifacts: [agent-instruction, code]
+    text: Read tools are safe. Write tools need confirmation.
+
+  - id: PS-TV-05
+    name: Test design argumentation
+    source: PRINCIPLES_FOR_SKILLS_AND_SUBAGENTS.md
+    severity: should
+    artifacts: [code, spec]
+    text: Structure a test or defect claim as claim, strategy, reason, evidence, and assumptions.
+
+  - id: PS-TV-06
+    name: Find bugs once
+    source: PRINCIPLES_FOR_SKILLS_AND_SUBAGENTS.md
+    severity: must
+    artifacts: [code]
+    text: Add a regression test for every confirmed bug.
+
+  - id: PS-TV-07
+    name: Declared safe-autofix boundary
+    source: scrub-slop/SKILL.md
+    severity: should
+    artifacts: [agent-instruction, code, skill]
+    text: A tool auto-applies only transforms it can prove behaviour-preserving. A transform that needs judgment is reported, not applied.
+
+  - id: PS-CODER-01
+    name: Design first
+    source: PRINCIPLES_FOR_SKILLS_AND_SUBAGENTS.md
+    severity: must
+    artifacts: [code]
+    text: State design decisions and why they fit the plan before changing code.
+
+  - id: PS-CODER-02
+    name: Verify before returning
+    source: PRINCIPLES_FOR_SKILLS_AND_SUBAGENTS.md
+    severity: must
+    artifacts: [code]
+    text: Compare the diff against acceptance criteria. Stop and report any mismatch.
+
+  - id: PS-CODER-03
+    name: No broken windows
+    source: PRINCIPLES_FOR_SKILLS_AND_SUBAGENTS.md
+    severity: should
+    artifacts: [code]
+    text: Fix TODOs, untested branches, or stale comments. File a follow-up task if you cannot fix them.
+
+  - id: PS-CODER-04
+    name: Write or update tests
+    source: PRINCIPLES_FOR_SKILLS_AND_SUBAGENTS.md
+    severity: must
+    artifacts: [code]
+    text: Write a regression test before or with the fix when tests are missing.
+
+  - id: PS-CODER-05
+    name: Stay calm on failures
+    source: PRINCIPLES_FOR_SKILLS_AND_SUBAGENTS.md
+    severity: must
+    artifacts: [code]
+    text: Collect facts, reproduce the failure, then fix.
+
+  - id: PS-TESTER-01
+    name: Argument each failure or risk
+    source: PRINCIPLES_FOR_SKILLS_AND_SUBAGENTS.md
+    severity: must
+    artifacts: [code]
+    text: For every failure or risk provide claim, evidence, reason, and assumptions.
+
+  - id: PS-TESTER-02
+    name: Verify evidence relevance
+    source: PRINCIPLES_FOR_SKILLS_AND_SUBAGENTS.md
+    severity: must
+    artifacts: [code]
+    text: Do not trust logs blindly. Check that evidence supports the claim.
+
+  - id: PS-TESTER-03
+    name: Cover edge states
+    source: PRINCIPLES_FOR_SKILLS_AND_SUBAGENTS.md
+    severity: must
+    artifacts: [code]
+    text: Test representative states and edge cases, not only happy paths.
+
+  - id: PS-TESTER-04
+    name: Report is input to human judgment
+    source: PRINCIPLES_FOR_SKILLS_AND_SUBAGENTS.md
+    severity: must
+    artifacts: [code]
+    text: Do not self-certify readiness. The report supports human judgment.
+
+  - id: PS-FIXER-01
+    name: Focus on root cause
+    source: PRINCIPLES_FOR_SKILLS_AND_SUBAGENTS.md
+    severity: must
+    artifacts: [code]
+    text: Focus on root cause and remediation. Do not focus on blame.
+
+  - id: PS-FIXER-02
+    name: Reproduce before fixing
+    source: PRINCIPLES_FOR_SKILLS_AND_SUBAGENTS.md
+    severity: must
+    artifacts: [code]
+    text: Reproduce the failure before changing code. Test assumptions explicitly.
+
+  - id: PS-FIXER-03
+    name: Crash early on invariant violation
+    source: PRINCIPLES_FOR_SKILLS_AND_SUBAGENTS.md
+    severity: must
+    artifacts: [code]
+    text: If an invariant is violated, escalate. Do not mask the violation.
+
+  - id: PS-FIXER-04
+    name: Explain why the fix works
+    source: PRINCIPLES_FOR_SKILLS_AND_SUBAGENTS.md
+    severity: must
+    artifacts: [code]
+    text: Explain why the fix works, not only that it works.
+
+  - id: PS-FIXER-05
+    name: Re-run regression checks
+    source: PRINCIPLES_FOR_SKILLS_AND_SUBAGENTS.md
+    severity: must
+    artifacts: [code]
+    text: Re-run the relevant tests and at least one broader regression check.
+
+  - id: HALT
+    name: Read before write
+    source: principle-catalog.md
+    severity: must
+    artifacts: [agent-instruction, handoff]
+    text: Do not run side-effect tools until the user confirms scope or gives an explicit GO trigger.
+
+  - id: FOG-OF-WAR
+    name: Treat diagnosis as hypothesis
+    source: principle-catalog.md
+    severity: must
+    artifacts: [agent-instruction, handoff, diagnose]
+    text: Link every root cause to concrete evidence. Label inference as inference.
+
+  - id: SCOPE-LOCK
+    name: One task per artifact
+    source: principle-catalog.md
+    severity: must
+    artifacts: [agent-instruction, handoff, spec, PRD]
+    text: Do not widen scope silently or bundle unrelated changes. Ship a behaviour-preserving surface fix as its own change, apart from semantic changes.
+
+  - id: VERIFY-BEFORE-RETURN
+    name: Verify claims before done
+    source: principle-catalog.md
+    severity: must
+    artifacts: [agent-instruction, handoff, spec, PRD]
+    text: Check every factual claim against trusted tool output or explicit human confirmation.
+
+  - id: HUMAN-JUDGMENT-FINAL
+    name: Agent does not self-certify
+    source: principle-catalog.md
+    severity: must
+    artifacts: [agent-instruction, handoff, spec, PRD]
+    text: Do not claim the output is compliant, correct, or ready.
+
+  - id: DRY
+    name: Do not repeat
+    source: principle-catalog.md
+    severity: should
+    artifacts: [agent-instruction, handoff, skill]
+    text: Reference existing artifacts. Do not duplicate context already in the repo.
+
+  - id: CHOOSE-PRECISE-NAMES
+    name: One name for one thing
+    source: principle-catalog.md
+    severity: must
+    artifacts: [agent-instruction, handoff, spec, code]
+    text: Avoid vague labels and banned synonyms.
+
+  - id: CONSISTENCY-AND-CONVENTIONS
+    name: Follow project conventions
+    source: principle-catalog.md
+    severity: should
+    artifacts: [agent-instruction, handoff, spec, PRD]
+    text: Keep terminology consistent across related artifacts.
+
+  - id: PULL-COMPLEXITY-DOWNWARD
+    name: Hide internal complexity
+    source: principle-catalog.md
+    severity: should
+    artifacts: [agent-instruction, skill, spec, PRD]
+    text: Keep the artifact surface simple. Move implementation details into subsections.
+
+  - id: PS-TL-01
+    name: Plain text over binary formats
+    source: PRINCIPLES_FOR_SKILLS_AND_SUBAGENTS.md
+    severity: should
+    artifacts: [spec, code, skill]
+    text: Store artifacts and state in plain text (Markdown, YAML, JSON). No database, binary cache, or opaque store without explicit justification.
+
+  - id: PS-DS-01
+    name: Design it twice
+    source: PRINCIPLES_FOR_SKILLS_AND_SUBAGENTS.md
+    severity: should
+    artifacts: [spec, PRD, code]
+    text: Generate at least two distinct design sketches and choose the best one with justification.
+
+  - id: SK-01
+    name: Coordination is a learned ability, not a hand-designed scaffold
+    source: SAKANA_DEEPSEEK_PRINCIPLES.md
+    severity: must
+    artifacts: [agent-instruction, handoff, spec, PRD, skill, code]
+    text: Orchestration strategy is discovered through end-to-end reward (RL or evolution), not fixed by hand. Give the orchestrator freedom to choose topology.
+
+  - id: SK-02
+    name: Specify workflows in natural language
+    source: SAKANA_DEEPSEEK_PRINCIPLES.md
+    severity: must
+    artifacts: [agent-instruction, handoff, spec, PRD]
+    text: A workflow step is a natural-language subtask plus an assigned agent id plus an access list defining visibility of prior steps.
+
+  - id: SK-03
+    name: "Separate roles: Thinker, Worker, Verifier"
+    source: SAKANA_DEEPSEEK_PRINCIPLES.md
+    severity: must
+    artifacts: [agent-instruction, skill, code]
+    text: Decompose work into thinker (strategize), worker (execute), verifier (accept or revise). Offload skill acquisition to workers; keep the coordinator light.
+
+  - id: SK-04
+    name: Coordinator decides via logits, not generated text
+    source: SAKANA_DEEPSEEK_PRINCIPLES.md
+    severity: should
+    artifacts: [code, skill]
+    text: For routing and role decisions, use a head over hidden states and dispatch immediately. Avoid expensive autoregressive decoding in the coordinator.
+
+  - id: SK-05
+    name: Evolution over intuition
+    source: SAKANA_DEEPSEEK_PRINCIPLES.md
+    severity: should
+    artifacts: [spec, PRD, skill]
+    text: Automate search for compositions and strategies. Accept counter-intuitive solutions that human designers would miss.
+
+  - id: SK-06
+    name: Search two orthogonal spaces
+    source: SAKANA_DEEPSEEK_PRINCIPLES.md
+    severity: should
+    artifacts: [spec, PRD, skill]
+    text: Optimize both parameters (weights, coefficients) and structure (topology, split points, inference path). Combine the two for multi-objective gains.
+
+  - id: SK-07
+    name: Diversity through competition for resources, not hand metrics
+    source: SAKANA_DEEPSEEK_PRINCIPLES.md
+    severity: should
+    artifacts: [skill, code]
+    text: Preserve population diversity via implicit fitness sharing (niches competing for limited resources), not via manually specified distance metrics.
+
+  - id: SK-08
+    name: Select partners by complementarity (attraction)
+    source: SAKANA_DEEPSEEK_PRINCIPLES.md
+    severity: should
+    artifacts: [skill, code]
+    text: Prefer a second parent or collaborator that is strong where the first is weak, not merely another top performer.
+
+  - id: SK-09
+    name: Use derivative-free optimization when gradients are noisy
+    source: SAKANA_DEEPSEEK_PRINCIPLES.md
+    severity: should
+    artifacts: [skill, code]
+    text: Under high dimensionality, weak parameter coupling, and tight budgets, CMA-ES or sep-CMA-ES beats RL, imitation learning, and random search.
+
+  - id: SK-10
+    name: Reward must be verifiable
+    source: SAKANA_DEEPSEEK_PRINCIPLES.md
+    severity: must
+    artifacts: [handoff, spec, PRD, code]
+    text: "Optimize only against verifiable signals: format plus correctness, or a binary terminal reward averaged over replicated runs."
+
+  - id: SK-11
+    name: Trace source-to-sink and separate data from authority
+    source: SAKANA_DEEPSEEK_PRINCIPLES.md
+    severity: must
+    artifacts: [agent-instruction, handoff, spec, code]
+    text: Treat untrusted content as data that cannot change the objective. Authorize sensitive actions independently of the model's reading of external documents.
+
+  - id: SK-12
+    name: Capability is model plus scaffold
+    source: SAKANA_DEEPSEEK_PRINCIPLES.md
+    severity: must
+    artifacts: [agent-instruction, handoff, spec, PRD]
+    text: Performance is a property of the scaffold and orchestration around the model, not only of the model itself.
+
+  - id: SK-ORCH-01
+    name: Emergent coordination from end-to-end reward
+    source: SAKANA_DEEPSEEK_PRINCIPLES.md
+    severity: must
+    artifacts: [agent-instruction, skill, code]
+    text: Planner, verifier, refinement, best-of-N, and debate patterns emerge from pure reward maximization instead of being hard-coded.
+
+  - id: SK-ORCH-02
+    name: Communication topology as an explicit design object
+    source: SAKANA_DEEPSEEK_PRINCIPLES.md
+    severity: must
+    artifacts: [agent-instruction, skill, code]
+    text: Decide which previous subtasks and responses each worker sees (access list). Control information flow explicitly.
+
+  - id: SK-ORCH-03
+    name: Verifier is the terminal condition
+    source: SAKANA_DEEPSEEK_PRINCIPLES.md
+    severity: must
+    artifacts: [agent-instruction, handoff, spec, code]
+    text: Halt when the verifier accepts the accumulated solution, or when a fixed turn budget is exhausted.
+
+  - id: SK-ORCH-04
+    name: Adapt compute to difficulty
+    source: SAKANA_DEEPSEEK_PRINCIPLES.md
+    severity: should
+    artifacts: [agent-instruction, handoff, PRD]
+    text: Allocate more steps to hard problems and fewer to easy ones. Do not waste compute on simple cases.
+
+  - id: SK-ORCH-05
+    name: Recursive self-reference as test-time scaling
+    source: SAKANA_DEEPSEEK_PRINCIPLES.md
+    severity: should
+    artifacts: [agent-instruction, skill, code]
+    text: Allow the coordinator to invoke itself as a worker under a bounded recursion depth, turning recursion into a tunable compute axis.
+
+  - id: SK-ORCH-06
+    name: Randomized pools for generalization
+    source: SAKANA_DEEPSEEK_PRINCIPLES.md
+    severity: should
+    artifacts: [handoff, spec, skill]
+    text: Train over random subsets of the worker pool so the orchestrator generalizes to arbitrary, possibly restricted agent sets.
+
+  - id: SK-ORCH-07
+    name: Configurable pools encode constraints
+    source: SAKANA_DEEPSEEK_PRINCIPLES.md
+    severity: must
+    artifacts: [handoff, spec, PRD]
+    text: Agent pools can favor providers, exclude models, or respect data, privacy, and compliance constraints without retraining.
+
+  - id: SK-ORCH-08
+    name: Separate operating points for speed and quality
+    source: SAKANA_DEEPSEEK_PRINCIPLES.md
+    severity: should
+    artifacts: [handoff, spec, skill]
+    text: Provide a latency-first variant (single worker) and a quality-first variant (multi-worker workflows), chosen per input.
+
+  - id: SK-EVO-01
+    name: Evolve boundaries, not just coefficients
+    source: SAKANA_DEEPSEEK_PRINCIPLES.md
+    severity: should
+    artifacts: [skill, code]
+    text: Put the split points or grouping boundaries into the search space instead of fixing them by hand.
+
+  - id: SK-EVO-02
+    name: Implicit fitness sharing over explicit diversity metrics
+    source: SAKANA_DEEPSEEK_PRINCIPLES.md
+    severity: should
+    artifacts: [skill, code]
+    text: Limit the total fitness extractable from each resource so competition naturally favors individuals occupying new niches.
+
+  - id: SK-EVO-03
+    name: Attraction metric for pairing
+    source: SAKANA_DEEPSEEK_PRINCIPLES.md
+    severity: should
+    artifacts: [skill, code]
+    text: Score a candidate by how well it performs on data points where the first parent performs poorly, weighted by resource capacity and low competition.
+
+  - id: SK-EVO-04
+    name: Archive-based evolution with gradual complexity
+    source: SAKANA_DEEPSEEK_PRINCIPLES.md
+    severity: should
+    artifacts: [skill, code]
+    text: Maintain an evolving archive, sample two parents, merge with a split point, and progressively expand the search space over generations.
+
+  - id: SK-EVO-05
+    name: Fitness-weighted recombination
+    source: SAKANA_DEEPSEEK_PRINCIPLES.md
+    severity: should
+    artifacts: [skill, code]
+    text: Recombine the top candidates via fitness-weighted averaging to form the next parent; estimate fitness by averaging replicated runs.
+
+  - id: SK-EVO-06
+    name: Soft performance distribution as supervision
+    source: SAKANA_DEEPSEEK_PRINCIPLES.md
+    severity: should
+    artifacts: [skill, code]
+    text: Supervise a router on a softmax distribution over measured worker scores rather than a single hard best label for robustness.
+
+  - id: SK-RL-01
+    name: Progressive format and correctness rewards
+    source: SAKANA_DEEPSEEK_PRINCIPLES.md
+    severity: must
+    artifacts: [handoff, spec, code]
+    text: Reward adherence to the output structure first, then correctness of the resulting workflow execution.
+
+  - id: SK-RL-02
+    name: GRPO grouped completions with KL penalty
+    source: SAKANA_DEEPSEEK_PRINCIPLES.md
+    severity: should
+    artifacts: [code]
+    text: Use grouped completions to compute a Monte-Carlo advantage and a KL penalty to a reference model for stable online RL.
+
+  - id: SK-RL-03
+    name: Remove manual constraints on strategy
+    source: SAKANA_DEEPSEEK_PRINCIPLES.md
+    severity: must
+    artifacts: [agent-instruction, skill]
+    text: Let the model express any strategy expressible in natural language rather than choosing from a preset topology list.
+
+  - id: DS-SEC-01
+    name: Model indirect injection as source-to-sink
+    source: SAKANA_DEEPSEEK_PRINCIPLES.md
+    severity: must
+    artifacts: [agent-instruction, handoff, code]
+    text: A source is a content-reading tool whose result is attacker-controlled. A sink is an externally observable action. Track taint between them.
+
+  - id: DS-SEC-02
+    name: Preserve provenance at the model boundary
+    source: SAKANA_DEEPSEEK_PRINCIPLES.md
+    severity: must
+    artifacts: [agent-instruction, handoff, code]
+    text: Tool results retain a source label, trust tier, and carrier type. State that untrusted content is data and cannot change the user's objective.
+
+  - id: DS-SEC-03
+    name: Authorize sensitive sinks independently
+    source: SAKANA_DEEPSEEK_PRINCIPLES.md
+    severity: must
+    artifacts: [agent-instruction, handoff, code]
+    text: Email, HTTP submission, shell, file mutation, privilege changes, and financial actions require allowlists, argument checks, classification, or user approval.
+
+  - id: DS-SEC-04
+    name: Treat skills and integrations as code-adjacent assets
+    source: SAKANA_DEEPSEEK_PRINCIPLES.md
+    severity: must
+    artifacts: [skill, handoff, spec]
+    text: Skills, MCP integrations, tool descriptions, and workflow templates need ownership, provenance, version review, and privilege restrictions.
+
+  - id: DS-SEC-05
+    name: Dual-judge evaluation
+    source: SAKANA_DEEPSEEK_PRINCIPLES.md
+    severity: should
+    artifacts: [code, spec]
+    text: Combine a deterministic rule-based judge for stable regression with a semantic LLM judge for behavioral influence.
+
+  - id: DS-SEC-06
+    name: Trace-level outcome criteria
+    source: SAKANA_DEEPSEEK_PRINCIPLES.md
+    severity: should
+    artifacts: [code, spec]
+    text: Classify outcomes as full success, partial compliance, or not reached, distinguishing quoted malicious text from attempted actions.
+
+  - id: DS-SEC-07
+    name: Runtime-level assessment and regression matrix
+    source: SAKANA_DEEPSEEK_PRINCIPLES.md
+    severity: should
+    artifacts: [code, spec]
+    text: Evaluate against the real runtime, not a synthetic agent, and rerun source-to-sink cases after changing prompts, tools, skills, parsers, models, or policy.
+  - id: CP-01
+    name: Inject dependencies over singletons and statics
+    source: Round11 - Effective Java
+    severity: should
+    artifacts: [code, spec]
+    text: A class whose behavior is parameterized by an underlying resource should receive that resource via dependency injection, not a singleton or static utility.
+
+  - id: CP-02
+    name: Reuse objects instead of re-creating them
+    source: Round11 - Effective Java
+    severity: must
+    artifacts: [code]
+    text: Avoid creating unnecessary objects — reuse a single object where a functionally equivalent one would otherwise be created repeatedly.
+
+  - id: CP-03
+    name: Null out obsolete references in self-managed memory
+    source: Round11 - Effective Java
+    severity: must
+    artifacts: [code]
+    text: Whenever a class manages its own memory, null out references to objects that are no longer needed to avoid memory leaks.
+
+  - id: CP-04
+    name: Avoid finalizers and cleaners
+    source: Round11 - Effective Java
+    severity: should
+    artifacts: [code]
+    text: Finalizers are unpredictable, often dangerous, and generally unnecessary; do not use them for resource cleanup.
+
+  - id: CP-05
+    name: Prefer try-with-resources over try-finally
+    source: Round11 - Effective Java
+    severity: should
+    artifacts: [code]
+    text: Always use try-with-resources in preference to try-finally when working with resources that must be closed.
+
+  - id: CP-06
+    name: Obey the equals contract
+    source: Round11 - Effective Java
+    severity: must
+    artifacts: [code]
+    text: When overriding equals, obey its general contract (reflexive, symmetric, transitive, consistent, and non-null).
+
+  - id: CP-07
+    name: Override hashCode whenever equals is overridden
+    source: Round11 - Effective Java
+    severity: must
+    artifacts: [code]
+    text: Override hashCode in every class that overrides equals, or hash-based collections will break.
+
+  - id: CP-08
+    name: Make classes immutable by default
+    source: Round11 - Effective Java
+    severity: should
+    artifacts: [code, spec]
+    text: Classes should be immutable unless there is a very good reason to make them mutable; limit mutability to the minimum. Family - CP-50.
+
+  - id: CP-09
+    name: Prohibit subclassing unless designed for it
+    source: Round11 - Effective Java
+    severity: should
+    artifacts: [code, spec]
+    text: Prohibit subclassing in classes not designed and documented for safe inheritance, or design them for inheritance explicitly.
+
+  - id: CP-10
+    name: Prefer interfaces to abstract classes
+    source: Round11 - Effective Java
+    severity: should
+    artifacts: [code, spec]
+    text: An interface is generally the best way to define a type that permits multiple implementations.
+
+  - id: CP-11
+    name: Do not use raw types
+    source: Round11 - Effective Java
+    severity: must
+    artifacts: [code]
+    text: Using raw types loses type safety and can lead to runtime exceptions; always parameterize generic types.
+
+  - id: CP-12
+    name: Prefer lists to arrays
+    source: Round11 - Effective Java
+    severity: should
+    artifacts: [code]
+    text: Arrays and generics do not mix well; prefer lists and other collections to arrays.
+
+  - id: CP-13
+    name: Use enums for compile-time constant sets
+    source: Round11 - Effective Java
+    severity: should
+    artifacts: [code]
+    text: Use enums any time you need a set of constants whose members are known at compile time. Family - CP-50.
+
+  - id: CP-14
+    name: Use the Override annotation consistently
+    source: Round11 - Effective Java
+    severity: must
+    artifacts: [code]
+    text: Consistently annotate methods that override a superclass declaration with @Override to catch signature errors.
+
+  - id: CP-15
+    name: Program defensively with defensive copies
+    source: Round11 - Effective Java
+    severity: must
+    artifacts: [code]
+    text: Assume clients will try to destroy your class invariants; make defensive copies of mutable inputs and outputs.
+
+  - id: CP-16
+    name: Return empty collections, not null
+    source: Round11 - Effective Java
+    severity: should
+    artifacts: [code]
+    text: Return empty collections or arrays instead of null to avoid forcing null checks on callers.
+
+  - id: CP-17
+    name: Enable noImplicitAny in new projects
+    source: Round11 - Effective TypeScript
+    severity: must
+    artifacts: [code]
+    text: Start new TypeScript projects with noImplicitAny on so types are written explicitly from the start.
+
+  - id: CP-18
+    name: Understand the dangers of any before using it
+    source: Round11 - Effective TypeScript
+    severity: must
+    artifacts: [code]
+    text: The any type eliminates many of the advantages of TypeScript; understand that cost before using it.
+
+  - id: CP-19
+    name: Prefer type declarations to type assertions
+    source: Round11 - Effective TypeScript
+    severity: must
+    artifacts: [code]
+    text: Prefer type declarations over type assertions — declarations are checked, assertions suppress checking.
+
+  - id: CP-20
+    name: Prefer type aliases for internal types
+    source: Round11 - Effective TypeScript
+    severity: must
+    artifacts: [code]
+    text: Use type aliases rather than interfaces for types used internally, to avoid accidental declaration merging.
+
+  - id: CP-21
+    name: Do not annotate inferable types
+    source: Round11 - Effective TypeScript
+    severity: should
+    artifacts: [code]
+    text: Do not annotate types that TypeScript can infer; redundant annotations add noise.
+
+  - id: CP-22
+    name: Make invalid states unrepresentable
+    source: Round11 - Effective TypeScript
+    severity: should
+    artifacts: [code, spec]
+    text: Craft types that can only represent valid states, so illegal states cannot be expressed at all. Family - CP-50.
+
+  - id: CP-23
+    name: Push nulls to the type perimeter
+    source: Round11 - Effective TypeScript
+    severity: should
+    artifacts: [code, spec]
+    text: Values are easier to work with when completely null or completely non-null; push nulls to the boundaries of types. Family - CP-50.
+
+  - id: CP-24
+    name: Prefer unions of precise interfaces
+    source: Round11 - Effective TypeScript
+    severity: should
+    artifacts: [code, spec]
+    text: If an interface's properties are union types, consider a union of more precise interfaces instead. Family - CP-50.
+
+  - id: CP-25
+    name: Prefer narrower types over string
+    source: Round11 - Effective TypeScript
+    severity: must
+    artifacts: [code]
+    text: Before declaring a string type, ask whether a narrower type such as a literal union or template type is more appropriate. Family - CP-50.
+
+  - id: CP-26
+    name: Scope any narrowly
+    source: Round11 - Effective TypeScript
+    severity: should
+    artifacts: [code]
+    text: Make uses of any as narrowly scoped as possible to limit loss of type safety elsewhere.
+
+  - id: CP-27
+    name: Ask for a precise type before any
+    source: Round11 - Effective TypeScript
+    severity: must
+    artifacts: [code]
+    text: When using any, ask whether a more specific type was actually intended.
+
+  - id: CP-28
+    name: Use unknown instead of any
+    source: Round11 - Effective TypeScript
+    severity: must
+    artifacts: [code]
+    text: Use unknown as the type-safe alternative to any when the value's type is not known.
+
+  - id: CP-29
+    name: Synchronize access to shared mutable state
+    source: Round11 - Java Concurrency in Practice
+    severity: must
+    artifacts: [code]
+    text: Whenever more than one thread accesses a state variable and one may write it, all accesses must be synchronized for atomicity and memory visibility.
+
+  - id: CP-30
+    name: Confine mutable data to avoid sharing
+    source: Round11 - Java Concurrency in Practice
+    severity: must
+    artifacts: [code]
+    text: Do not share mutable data across threads; confine it to a single thread or make it immutable to eliminate synchronization needs.
+
+  - id: CP-31
+    name: Publish shared objects safely
+    source: Round11 - Java Concurrency in Practice
+    severity: must
+    artifacts: [code]
+    text: Shared mutable objects must be safely published and be either thread-safe or guarded by a lock.
+
+  - id: CP-32
+    name: Make compound actions atomic
+    source: Round11 - Java Concurrency in Practice
+    severity: must
+    artifacts: [code]
+    text: Compound actions on shared state, such as read-modify-write and check-then-act, and updates to related state variables, must be performed in a single atomic operation.
+
+  - id: CP-33
+    name: Synchronize for memory visibility
+    source: Round11 - Java Concurrency in Practice
+    severity: must
+    artifacts: [code]
+    text: To ensure a thread's writes are visible to other threads, use synchronization, or volatile where only visibility is needed.
+
+  - id: CP-34
+    name: Do not abuse ThreadLocal as hidden global state
+    source: Round11 - Java Concurrency in Practice
+    severity: should
+    artifacts: [code]
+    text: Do not use ThreadLocal's thread-confinement as a license to hide global variables.
+
+  - id: CP-35
+    name: Do not let this escape during construction
+    source: Round11 - Java Concurrency in Practice
+    severity: must
+    artifacts: [code]
+    text: Do not allow the this reference to escape from a constructor, for example by publishing it or starting a thread.
+
+  - id: CP-36
+    name: Avoid client-side locking on foreign objects
+    source: Round11 - Java Concurrency in Practice
+    severity: must
+    artifacts: [code]
+    text: Avoid client-side locking on classes that do not commit to their locking strategy.
+
+  - id: CP-37
+    name: Do not swallow InterruptedException
+    source: Round11 - Java Concurrency in Practice
+    severity: must
+    artifacts: [code]
+    text: Never catch InterruptedException and do nothing; restore the interrupt status or propagate it.
+
+  - id: CP-38
+    name: Guard against thread-starvation deadlock
+    source: Round11 - Java Concurrency in Practice
+    severity: should
+    artifacts: [code]
+    text: When submitting non-independent tasks to an Executor, watch for thread-starvation deadlock where tasks wait on other tasks in the pool.
+
+  - id: CP-39
+    name: Acquire locks in a fixed global order
+    source: Round11 - Java Concurrency in Practice
+    severity: must
+    artifacts: [code]
+    text: Acquire multiple locks in a fixed global order to avoid lock-ordering deadlocks.
+
+  - id: CP-40
+    name: Return Task, not async void
+    source: Round11 - Pro Async .NET
+    severity: must
+    artifacts: [code]
+    text: Non-event-handler async methods should return Task rather than async void so callers can observe completion and failures.
+
+  - id: CP-41
+    name: Synchronize without serializing the program
+    source: Round11 - Pro Async .NET
+    severity: must
+    artifacts: [code]
+    text: Use only enough synchronization for thread safety, not enough to serialize unrelated work.
+
+  - id: CP-42
+    name: Do not lock on this or public objects
+    source: Round11 - Pro Async .NET
+    severity: must
+    artifacts: [code]
+    text: Do not lock on this or other publicly reachable objects, since other code may lock them and cause deadlocks.
+
+  - id: CP-43
+    name: Prefer timed waits on locks
+    source: Round11 - Pro Async .NET
+    severity: must
+    artifacts: [code]
+    text: Prefer being able to time out when acquiring locks to avoid hard-to-diagnose deadlocks.
+
+  - id: CP-44
+    name: Do not rely on WhenAny for large task sets
+    source: Round11 - Pro Async .NET
+    severity: must
+    artifacts: [code]
+    text: Task.WhenAny does not scale because it registers a continuation for every task; use alternatives for large task sets.
+
+  - id: CP-45
+    name: Do not parallelize order-sensitive loops
+    source: Round11 - Pro Async .NET
+    severity: must
+    artifacts: [code]
+    text: Do not parallelize a loop when iteration order matters.
+
+  - id: CP-46
+    name: Release the thread during async I/O
+    source: Round11 - Pro Async .NET
+    severity: must
+    artifacts: [code]
+    text: During asynchronous I/O, release the request thread back to the thread pool instead of blocking it.
+
+  - id: CP-47
+    name: Do not evaluate a model on its training data
+    source: Round11 - Intro ML with Python
+    severity: must
+    artifacts: [code]
+    text: Never use the same data to build a model and to evaluate it; evaluation must use held-out data.
+
+  - id: CP-48
+    name: Hold out a test set, prefer cross-validation
+    source: Round11 - Intro ML with Python
+    severity: should
+    artifacts: [code, spec]
+    text: Hold out a test set for evaluation; prefer cross-validation when data is scarce rather than a fixed split.
+
+  - id: CP-49
+    name: Let the data structure contract drive algorithm choice
+    source: Round11 - Data Structures and Algorithms
+    severity: should
+    artifacts: [code, spec]
+    text: A data structure's contract (sorted order, random access) determines which algorithms are safe on it; choose the algorithm whose preconditions the structure actually satisfies, and design structures so their contract matches the operations needed.
+  - id: CP-50
+    name: Types carry the invariant
+    source: Round11 consolidation - deep-module family parent
+    severity: should
+    artifacts: [code, spec]
+    text: PS-02 instantiated at the type level - a type is a deep module whose interface is the set of expressible values and whose implementation is the invariant - design types so illegal states and transitions are unrepresentable. Parent of family - children are the techniques - CP-08, CP-13, CP-22, CP-23, CP-24, CP-25. Related - PS-02, PS-03.
+---
+
+# Principles Catalog
+
+This file is the source of truth for `to-violations` skill.
+It merges principles from `"$USER_HOME/Agentic-Engineering/.docs/PRINCIPLES_FOR_SKILLS_AND_SUBAGENTS.md"`, `"$USER_HOME/Agentic-Engineering/.docs/RTL-to-GDS_PRINCIPLES.md"` and `"$USER_HOME/Agentic-Engineering/.docs/SAKANA_DEEPSEEK_PRINCIPLES.md"`.
+
+## How to use
+
+Reference a principle by its `id` in a violation report.
+Use `severity` to rank fixes.
+Use `artifacts` to decide whether the principle applies to the file under review.

@@ -1,0 +1,45 @@
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+*.so
+.Python
+.venv/
+venv/
+env/
+.env
+.env.*
+
+# Node
+node_modules/
+package-lock.json
+
+# Logs and temp
+*.log
+tmp/
+logs/
+*.tmp
+
+# Build artifacts
+dist/
+build/
+
+# Sensitive data
+*.key
+*.secret
+*.token
+
+# Project-specific
+.archive/
+.docs/.arch/

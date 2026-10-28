@@ -1,0 +1,255 @@
+{
+  "generated_from": "C:\\Users\\HOME\\.agents\\skills\\to-violations\\PRINCIPLES.md",
+  "cps": [
+    {
+      "id": "CP-01",
+      "severity": "should",
+      "statement": "A class whose behavior is parameterized by an underlying resource should receive that resource via dependency injection, not a singleton or static utility."
+    },
+    {
+      "id": "CP-02",
+      "severity": "must",
+      "statement": "Avoid creating unnecessary objects — reuse a single object where a functionally equivalent one would otherwise be created repeatedly."
+    },
+    {
+      "id": "CP-03",
+      "severity": "must",
+      "statement": "Whenever a class manages its own memory, null out references to objects that are no longer needed to avoid memory leaks."
+    },
+    {
+      "id": "CP-04",
+      "severity": "should",
+      "statement": "Finalizers are unpredictable, often dangerous, and generally unnecessary; do not use them for resource cleanup."
+    },
+    {
+      "id": "CP-05",
+      "severity": "should",
+      "statement": "Always use try-with-resources in preference to try-finally when working with resources that must be closed."
+    },
+    {
+      "id": "CP-06",
+      "severity": "must",
+      "statement": "When overriding equals, obey its general contract (reflexive, symmetric, transitive, consistent, and non-null)."
+    },
+    {
+      "id": "CP-07",
+      "severity": "must",
+      "statement": "Override hashCode in every class that overrides equals, or hash-based collections will break."
+    },
+    {
+      "id": "CP-08",
+      "severity": "should",
+      "statement": "Classes should be immutable unless there is a very good reason to make them mutable; limit mutability to the minimum. Family - CP-50."
+    },
+    {
+      "id": "CP-09",
+      "severity": "should",
+      "statement": "Prohibit subclassing in classes not designed and documented for safe inheritance, or design them for inheritance explicitly."
+    },
+    {
+      "id": "CP-10",
+      "severity": "should",
+      "statement": "An interface is generally the best way to define a type that permits multiple implementations."
+    },
+    {
+      "id": "CP-11",
+      "severity": "must",
+      "statement": "Using raw types loses type safety and can lead to runtime exceptions; always parameterize generic types."
+    },
+    {
+      "id": "CP-12",
+      "severity": "should",
+      "statement": "Arrays and generics do not mix well; prefer lists and other collections to arrays."
+    },
+    {
+      "id": "CP-13",
+      "severity": "should",
+      "statement": "Use enums any time you need a set of constants whose members are known at compile time. Family - CP-50."
+    },
+    {
+      "id": "CP-14",
+      "severity": "must",
+      "statement": "Consistently annotate methods that override a superclass declaration with @Override to catch signature errors."
+    },
+    {
+      "id": "CP-15",
+      "severity": "must",
+      "statement": "Assume clients will try to destroy your class invariants; make defensive copies of mutable inputs and outputs."
+    },
+    {
+      "id": "CP-16",
+      "severity": "should",
+      "statement": "Return empty collections or arrays instead of null to avoid forcing null checks on callers."
+    },
+    {
+      "id": "CP-17",
+      "severity": "must",
+      "statement": "Start new TypeScript projects with noImplicitAny on so types are written explicitly from the start."
+    },
+    {
+      "id": "CP-18",
+      "severity": "must",
+      "statement": "The any type eliminates many of the advantages of TypeScript; understand that cost before using it."
+    },
+    {
+      "id": "CP-19",
+      "severity": "must",
+      "statement": "Prefer type declarations over type assertions — declarations are checked, assertions suppress checking."
+    },
+    {
+      "id": "CP-20",
+      "severity": "must",
+      "statement": "Use type aliases rather than interfaces for types used internally, to avoid accidental declaration merging."
+    },
+    {
+      "id": "CP-21",
+      "severity": "should",
+      "statement": "Do not annotate types that TypeScript can infer; redundant annotations add noise."
+    },
+    {
+      "id": "CP-22",
+      "severity": "should",
+      "statement": "Craft types that can only represent valid states, so illegal states cannot be expressed at all. Family - CP-50."
+    },
+    {
+      "id": "CP-23",
+      "severity": "should",
+      "statement": "Values are easier to work with when completely null or completely non-null; push nulls to the boundaries of types. Family - CP-50."
+    },
+    {
+      "id": "CP-24",
+      "severity": "should",
+      "statement": "If an interface's properties are union types, consider a union of more precise interfaces instead. Family - CP-50."
+    },
+    {
+      "id": "CP-25",
+      "severity": "must",
+      "statement": "Before declaring a string type, ask whether a narrower type such as a literal union or template type is more appropriate. Family - CP-50."
+    },
+    {
+      "id": "CP-26",
+      "severity": "should",
+      "statement": "Make uses of any as narrowly scoped as possible to limit loss of type safety elsewhere."
+    },
+    {
+      "id": "CP-27",
+      "severity": "must",
+      "statement": "When using any, ask whether a more specific type was actually intended."
+    },
+    {
+      "id": "CP-28",
+      "severity": "must",
+      "statement": "Use unknown as the type-safe alternative to any when the value's type is not known."
+    },
+    {
+      "id": "CP-29",
+      "severity": "must",
+      "statement": "Whenever more than one thread accesses a state variable and one may write it, all accesses must be synchronized for atomicity and memory visibility."
+    },
+    {
+      "id": "CP-30",
+      "severity": "must",
+      "statement": "Do not share mutable data across threads; confine it to a single thread or make it immutable to eliminate synchronization needs."
+    },
+    {
+      "id": "CP-31",
+      "severity": "must",
+      "statement": "Shared mutable objects must be safely published and be either thread-safe or guarded by a lock."
+    },
+    {
+      "id": "CP-32",
+      "severity": "must",
+      "statement": "Compound actions on shared state, such as read-modify-write and check-then-act, and updates to related state variables, must be performed in a single atomic operation."
+    },
+    {
+      "id": "CP-33",
+      "severity": "must",
+      "statement": "To ensure a thread's writes are visible to other threads, use synchronization, or volatile where only visibility is needed."
+    },
+    {
+      "id": "CP-34",
+      "severity": "should",
+      "statement": "Do not use ThreadLocal's thread-confinement as a license to hide global variables."
+    },
+    {
+      "id": "CP-35",
+      "severity": "must",
+      "statement": "Do not allow the this reference to escape from a constructor, for example by publishing it or starting a thread."
+    },
+    {
+      "id": "CP-36",
+      "severity": "must",
+      "statement": "Avoid client-side locking on classes that do not commit to their locking strategy."
+    },
+    {
+      "id": "CP-37",
+      "severity": "must",
+      "statement": "Never catch InterruptedException and do nothing; restore the interrupt status or propagate it."
+    },
+    {
+      "id": "CP-38",
+      "severity": "should",
+      "statement": "When submitting non-independent tasks to an Executor, watch for thread-starvation deadlock where tasks wait on other tasks in the pool."
+    },
+    {
+      "id": "CP-39",
+      "severity": "must",
+      "statement": "Acquire multiple locks in a fixed global order to avoid lock-ordering deadlocks."
+    },
+    {
+      "id": "CP-40",
+      "severity": "must",
+      "statement": "Non-event-handler async methods should return Task rather than async void so callers can observe completion and failures."
+    },
+    {
+      "id": "CP-41",
+      "severity": "must",
+      "statement": "Use only enough synchronization for thread safety, not enough to serialize unrelated work."
+    },
+    {
+      "id": "CP-42",
+      "severity": "must",
+      "statement": "Do not lock on this or other publicly reachable objects, since other code may lock them and cause deadlocks."
+    },
+    {
+      "id": "CP-43",
+      "severity": "must",
+      "statement": "Prefer being able to time out when acquiring locks to avoid hard-to-diagnose deadlocks."
+    },
+    {
+      "id": "CP-44",
+      "severity": "must",
+      "statement": "Task.WhenAny does not scale because it registers a continuation for every task; use alternatives for large task sets."
+    },
+    {
+      "id": "CP-45",
+      "severity": "must",
+      "statement": "Do not parallelize a loop when iteration order matters."
+    },
+    {
+      "id": "CP-46",
+      "severity": "must",
+      "statement": "During asynchronous I/O, release the request thread back to the thread pool instead of blocking it."
+    },
+    {
+      "id": "CP-47",
+      "severity": "must",
+      "statement": "Never use the same data to build a model and to evaluate it; evaluation must use held-out data."
+    },
+    {
+      "id": "CP-48",
+      "severity": "should",
+      "statement": "Hold out a test set for evaluation; prefer cross-validation when data is scarce rather than a fixed split."
+    },
+    {
+      "id": "CP-49",
+      "severity": "should",
+      "statement": "A data structure's contract (sorted order, random access) determines which algorithms are safe on it; choose the algorithm whose preconditions the structure actually satisfies, and design structures so their contract matches the operations needed."
+    },
+    {
+      "id": "CP-50",
+      "severity": "should",
+      "statement": "PS-02 instantiated at the type level - a type is a deep module whose interface is the set of expressible values and whose implementation is the invariant - design types so illegal states and transitions are unrepresentable. Parent of family - children are the techniques - CP-08, CP-13, CP-22, CP-23, CP-24, CP-25. Related - PS-02, PS-03."
+    }
+  ]
+}

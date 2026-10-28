@@ -1,0 +1,45 @@
+{
+  "skills": [
+    "$USER_HOME/.agents/skills"
+  ],
+  "compaction": {
+    "enabled": false
+  },
+  "defaultThinkingLevel": "medium",
+  "conductor": {
+    "roles": {
+      "explore": { "allowedTools": ["read", "web_search", "web_read", "write"] },
+      "plan": { "allowedTools": ["read", "web_search", "web_read", "write"] },
+      "coder": { "allowedTools": ["read", "edit", "write", "bash"] },
+      "tester": { "allowedTools": ["read", "bash", "get_test_profile"] },
+      "fixer": { "allowedTools": ["read", "edit", "write", "bash"] }
+    },
+    "skillRunner": {
+      "defaultThinking": "medium",
+      "defaultCaveman": false,
+      "maxRuntimeMinutes": 30,
+      "outputRoot": "tmp/skills"
+    },
+    "ralph": {
+      "maxIterations": 10,
+      "pollIntervalMinutes": 60,
+      "stuckThresholdMinutes": 30
+    },
+    "chains": "conductor-chains.json"
+  },
+  "permissionGate": {
+    "mutatingTools": ["edit", "write", "bash"],
+    "readTools": ["read", "grep", "find", "ls"],
+    "implementationTriggers": [
+      "сделай",
+      "коди",
+      "implement",
+      "implementation",
+      "внедри",
+      "build it",
+      "do it",
+      "do it now"
+    ],
+    "defaultMode": "implement"
+  }
+}
