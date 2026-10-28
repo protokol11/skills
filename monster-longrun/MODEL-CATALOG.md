@@ -1,11 +1,11 @@
 # Model catalog
 
-Deterministic role→model selection. Source of truth is the user's model-eval data, NOT guesses:
+Deterministic role→model selection. Source of truth is the user's own model-rotation data, NOT guesses. Keep it in a model-catalog folder in your workspace, with these files:
 
-- `$USER_HOME/Desktop/model-eval/.docs/models-specifics/catalog.md` — free-model table (`[ours]` = tested in our rotations, `[web]` = web benchmarks).
-- `$USER_HOME/Desktop/model-eval/.docs/models-specifics/` (individual model files) — role/thinking advice per model.
-- `$USER_HOME/Desktop/model-eval/.docs/pipeline-rules.md` — role rules (builder=thinking/high, critic=off, never mix).
-- `$USER_HOME/Desktop/model-eval/.docs/comparison.md` — reviewer verdicts.
+- `catalog.md` — free-model table (`[ours]` = tested in our rotations, `[web]` = web benchmarks).
+- `models-specifics/` (individual model files) — role/thinking advice per model.
+- `pipeline-rules.md` — role rules (builder=thinking/high, critic=off, never mix).
+- `comparison.md` — reviewer verdicts.
 
 If a model changes or a new rotation lands a verdict, update this file from that source.
 

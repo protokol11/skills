@@ -113,4 +113,4 @@ Honesty:
 
 ## Reference implementation
 
-`idle_calendar` repo: `.scratch/island-run.mjs` plus `.scratch/island-stress.py` and `.scratch/island-stress-real.py`. Built 2026-09-15 for a Tauri host, Godot renderer, and TS sidecar. Session report: `.docs/sessions/2026-09-15/statuses/2026-09-15_feedback-loop-renderer-soak.md`.
+Built 2026-09-15 for a Tauri host, Godot renderer, and TS sidecar: a headless runner script plus two fault-injection stress scripts in the project's `.scratch/`, wired to watch markers and kill the tree on failure. The soak-test pattern (run → watch markers → inject fault → verify the report cites logs) is what this section documents.
