@@ -1,6 +1,6 @@
 # protokol11/skills
 
-27 agent skills from a real, working engineering system — for anyone running AI coding agents daily.
+29 agent skills from a real, working engineering system — for anyone running AI coding agents daily.
 
 ## What you get
 
@@ -24,6 +24,8 @@ Skills are grouped into packages. Copy one package or the whole repo.
 | `write-skill` | Create a well-formed agent skill from a task or a pipeline doc. |
 | `groom` | Drain the global inbox into the current project's queue. One question per line. |
 | `hard-truth` | A bug or "not what I wanted" report comes in; diagnose feature depth and module boundaries before the visible symptom. |
+| `write-readme` ([repo](https://github.com/protokol11/write-readme)) | Write or audit a project README: section set by project type, proof command above the fold, then link/heading/snippet checks. |
+| `deep-research` ([repo](https://github.com/protokol11/deep-research)) | Multi-agent web research swarm: reusable agents, disk scratchpad, skeptic pass, one cited report. |
 | `conduct-tickets` | Orchestrate parallel implementation of multiple tickets through waves of file-isolated coder agents. |
 | `payload-compression` | Design dense tool, API, and MCP response payloads. Cut tokens while keeping meaning intact. |
 | `dreyfus-router` | Choose novice, competent, proficient, or expert mode for a subagent based on task familiarity. |

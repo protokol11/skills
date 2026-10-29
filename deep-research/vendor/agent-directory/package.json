@@ -1,0 +1,8 @@
+{
+  "name": "agent-directory",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --experimental-strip-types tests/loader.test.ts"
+  }
+}
