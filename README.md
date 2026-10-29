@@ -2,6 +2,15 @@
 
 29 agent skills from a real, working engineering system — for anyone running AI coding agents daily.
 
+## Quick start
+
+```sh
+git clone https://github.com/protokol11/skills.git
+cp -r skills/* ~/.agents/skills/
+```
+
+In pi: `/skill:hands-on` resumes the latest handoff, `/skill:drill-me` drills one decision. Individual packs also live in standalone repos (drill, handoffs, principles, …) if you do not need the whole bundle.
+
 ## Why this bundle exists
 
 These skills were not designed in the abstract. Each one was extracted from a daily agentic pipeline that is itself in production use: a session starts by resuming a handoff (`hands-on`), gets planned through a Socratic drill (`drill-me`), turns into specs and ADRs (`to-spec`, `to-adr`), dispatches implementation to subagents (`implement`), verifies results against a principle catalog (`to-violations`, `violent`), and closes with a context-window handoff (`hands-off`). Runtime infrastructure skills — routing subagent cognition (`dreyfus-router`), setting human-involvement levels (`autonomy-level`), measuring cost (`cost-tracer`) — grew the same way, out of observed bottlenecks rather than speculation.
