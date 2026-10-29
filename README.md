@@ -2,6 +2,13 @@
 
 29 agent skills from a real, working engineering system — for anyone running AI coding agents daily.
 
+## Why this bundle exists
+
+These skills were not designed in the abstract. Each one was extracted from a daily agentic pipeline that is itself in production use: a session starts by resuming a handoff (`hands-on`), gets planned through a Socratic drill (`drill-me`), turns into specs and ADRs (`to-spec`, `to-adr`), dispatches implementation to subagents (`implement`), verifies results against a principle catalog (`to-violations`, `violent`), and closes with a context-window handoff (`hands-off`). Runtime infrastructure skills — routing subagent cognition (`dreyfus-router`), setting human-involvement levels (`autonomy-level`), measuring cost (`cost-tracer`) — grew the same way, out of observed bottlenecks rather than speculation.
+
+Scope: the skills, their docs, and the sync between this bundle and the standalone package repos.
+Non-scope: an orchestrator runtime, a model router, or a principle catalog — the pipeline assumes those already exist.
+
 ## What you get
 
 Skills are grouped into packages. Copy one package or the whole repo.
@@ -15,6 +22,8 @@ Skills are grouped into packages. Copy one package or the whole repo.
 | **principles** — extract principles from research, lint/rewrite artifacts against them, render compliance artifacts | `to-principles`, `principled-write`, `principles-render` | https://github.com/protokol11/principles |
 | **violence-fix** — find principle violations, slice-fix them through subagents, re-check claimed fixes for new violations | `to-violations`, `violent`, `violent-subagent` | https://github.com/protokol11/violence-fix |
 | **repo-upgrade** — bootstrap or upgrade a project to an agentic scaffold with a compliance package | `setup-repo`, `upgrade-repo` | https://github.com/protokol11/repo-upgrade |
+| **write-readme** — fix the README section set by project type, front-load the proof command, run link/heading/snippet checks | `write-readme` | https://github.com/protokol11/write-readme |
+| **deep-research** — multi-agent web research swarm: reusable agents, disk scratchpad, skeptic pass, one cited report | `deep-research` | https://github.com/protokol11/deep-research |
 
 ### Standalone skills
 
@@ -24,9 +33,7 @@ Skills are grouped into packages. Copy one package or the whole repo.
 | `write-skill` | Create a well-formed agent skill from a task or a pipeline doc. |
 | `groom` | Drain the global inbox into the current project's queue. One question per line. |
 | `hard-truth` | A bug or "not what I wanted" report comes in; diagnose feature depth and module boundaries before the visible symptom. |
-| `write-readme` ([repo](https://github.com/protokol11/write-readme)) | Write or audit a project README: section set by project type, proof command above the fold, then link/heading/snippet checks. |
-| `deep-research` ([repo](https://github.com/protokol11/deep-research)) | Multi-agent web research swarm: reusable agents, disk scratchpad, skeptic pass, one cited report. |
-| `conduct-tickets` | Orchestrate parallel implementation of multiple tickets through waves of file-isolated coder agents. |
+| `conduct-tickets` | Orchestrate parallel implementation of multiple tickets through waves of file-isolated coder agents. Draft: expects `split-to-tickets` and `hygiene-check`, which are not published here — it will not run end to end without them. |
 | `payload-compression` | Design dense tool, API, and MCP response payloads. Cut tokens while keeping meaning intact. |
 | `dreyfus-router` | Choose novice, competent, proficient, or expert mode for a subagent based on task familiarity. |
 | `autonomy-level` | Choose a human-involvement level for a risky or uncertain task. |
@@ -34,30 +41,21 @@ Skills are grouped into packages. Copy one package or the whole repo.
 
 ## Install
 
+Prerequisites: None — skills are folders with `SKILL.md` files; no build step.
+
 Copy the folders you want into `~/.agents/skills/` — or copy the whole repo.
 
 ```sh
 cp -r drill drill-me ~/.agents/skills/
 ```
 
+Expected result: the copied folders appear in `~/.agents/skills/` and the agent loads their `SKILL.md` on the next session.
+
 Works with any agent that reads `SKILL.md` files. Under [pi](https://github.com/badlogic/pi-mono), invoke with `/skill:<name>`, e.g. `/skill:drill-me`.
 
-## Honest status
+## Contributing
 
-**Status: working.** These skills run daily in the author's system. Caveats:
-
-- `drill`, `drill-me`, `live-loop` — **draft**: mature in use, docs still being tightened.
-- `conduct-tickets` — **draft**: it orchestrates tickets produced by `split-to-tickets` and checked by `hygiene-check`, which are not published and not included here. The skill won't run end to end without them.
-- All packages have standalone repos (links above); the bundle and the packs stay in sync via a one-way sync script.
-
-## Contents
-
-- [What you get](#what-you-get)
-- [Standalone skills](#standalone-skills)
-- [Install](#install)
-- [Honest status](#honest-status)
-- [Credits](#credits)
-- [License](#license)
+These skills run daily in the author's own pipeline; most mature through use rather than through external tickets. Drafts (`drill`, `drill-me`, `live-loop` — mature in use, docs being tightened) are marked as such in their packages. File issues at https://github.com/protokol11/skills/issues. Each package repo carries its own checks; there is no bundle-level test suite.
 
 ## Credits
 
